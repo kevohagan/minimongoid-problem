@@ -1,7 +1,8 @@
 class @FriendsRecipesController extends RouteController
-  before: ->
-    @subscribe('recipes').wait()
-    @subscribe('userData').wait()
+
+  waitOn: ->
+    @subscribe('recipes')
+    @subscribe('userData')
 
   data: ->
     recipes: ->

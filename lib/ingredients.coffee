@@ -1,5 +1,6 @@
 
 class @Ingredient extends Minimongoid
+
   @embedded_in: 'recipe'
 
   @defaults:

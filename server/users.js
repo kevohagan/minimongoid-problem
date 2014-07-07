@@ -24,7 +24,7 @@
       if (doc._id !== Meteor.userId()) {
         return false;
       } else {
-        return true; 
+        return true;
       }
     }
   });
@@ -43,3 +43,18 @@
     if (options.profile) user.profile = options.profile;
     return user;
   });
+
+
+
+Meteor.startup(function () {
+
+  if (Meteor.users.find().count() === 0 ) {
+    Accounts.createUser({
+      username: 'test',
+      name: 'test',
+      email: 'test@test.com',
+      password: 'test'
+    });
+
+  };
+});

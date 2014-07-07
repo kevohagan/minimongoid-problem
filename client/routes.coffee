@@ -1,11 +1,6 @@
 Template.navbar.currentUserId = ->
   Meteor.userId()
 
-Template.navbar.helpers {
-  'active' : (route_name) ->
-    if Router.current().route.name == route_name
-      "active"
-}  
 
 Router.map ->
   @route "home", {
@@ -14,15 +9,18 @@ Router.map ->
 
   @route "friends", {
     path: "/friends"
-  } 
+    controller: "FriendsController"
+  }
 
   @route "friends_recipes", {
     path: "/friends_recipes"
-  } 
+    controller: "FriendsRecipesController"
+  }
 
   @route "recipes", {
-    path: "/recipes"
-  } 
+    path: "/recipes",
+    controller: "RecipesController"
+  }
 
 
 Router.configure {

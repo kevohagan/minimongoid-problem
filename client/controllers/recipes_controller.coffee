@@ -1,20 +1,20 @@
 class @RecipesController extends RouteController
-  before: ->
-    @subscribe('recipes').wait()
 
+  waitOn: ->
+    Meteor.subscribe('recipes')
   data: ->
     my_recipes: User.current().recipes()
-    
-    
+
+
 
 Template.recipes.events
-  'click #recipe-save' : (e, t) -> 
+  'click #recipe-save' : (e, t) ->
     e.preventDefault()
     recipe = Recipe.create {
       user_id: Meteor.userId()
       name:    $(t.find('#recipe-name')).val()
     }
-    if recipe.errors 
+    if recipe.errors
       $(t.find('#recipe-form')).addClass('error')
       $(t.find('#recipe-form .help-inline')).html(recipe.error_message())
 
@@ -23,12 +23,15 @@ Template.recipe.events
     e.preventDefault()
     ingredient = {name: $(t.find('.ingredient-name')).val()}
     quantity = $(t.find('.ingredient-quantity')).val()
-    ingredient.quantity = parseInt(quantity) if (quantity) 
+    ingredient.quantity = parseInt(quantity) if (quantity)
+    test = ingredient
     # this = this Recipe
+
+    console.log @,test,quantity
     @push {
-      ingredients: ingredient
+      ingredients: test
     }
-  
+
   'click .del' : (e, t) ->
     e.preventDefault()
     recipe = this
@@ -41,5 +44,5 @@ Template.ingredient.events
     @recipe.pull {
       ingredients: {name: @name}
     }
-    
-  
+
+
